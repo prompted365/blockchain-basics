@@ -2,6 +2,74 @@
 // Interactive investigation tools, gamification, and scenario management
 
 // ========================================
+// AUDIO MANAGEMENT
+// ========================================
+
+function toggleAudio() {
+  const enabled = audioManager.toggle();
+  document.getElementById('audioIcon').textContent = enabled ? '🔊' : '🔇';
+  showToast(enabled ? 'Sound enabled' : 'Sound muted', 'info');
+}
+
+function playClickSound() {
+  if (typeof audioManager !== 'undefined') {
+    audioManager.playClick();
+  }
+}
+
+// Initialize audio on first user interaction
+document.addEventListener('click', () => {
+  if (typeof audioManager !== 'undefined') {
+    audioManager.init();
+  }
+}, { once: true });
+
+// ========================================
+// ANIMATIONS
+// ========================================
+
+function createConfetti() {
+  const confettiCount = 50;
+  const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+  
+  for (let i = 0; i < confettiCount; i++) {
+    const confetti = document.createElement('div');
+    confetti.style.position = 'fixed';
+    confetti.style.width = '10px';
+    confetti.style.height = '10px';
+    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.top = '-10px';
+    confetti.style.opacity = '1';
+    confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+    confetti.style.zIndex = '10000';
+    confetti.style.pointerEvents = 'none';
+    
+    document.body.appendChild(confetti);
+    
+    const duration = 2000 + Math.random() * 1000;
+    const rotation = Math.random() * 360;
+    const xMovement = (Math.random() - 0.5) * 100;
+    
+    confetti.animate([
+      { 
+        transform: 'translateY(0) translateX(0) rotate(0deg)',
+        opacity: 1
+      },
+      { 
+        transform: `translateY(${window.innerHeight + 20}px) translateX(${xMovement}px) rotate(${rotation}deg)`,
+        opacity: 0
+      }
+    ], {
+      duration: duration,
+      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    }).onfinish = () => {
+      confetti.remove();
+    };
+  }
+}
+
+// ========================================
 // GAME STATE MANAGEMENT
 // ========================================
 
@@ -448,6 +516,12 @@ function checkAchievements() {
     if (!gameState.achievements.includes(achievement.id) && achievement.condition()) {
       gameState.achievements.push(achievement.id);
       addXP(achievement.xpReward);
+      
+      // Play achievement sound
+      if (typeof audioManager !== 'undefined') {
+        audioManager.playAchievement();
+      }
+      
       showToast(`🏆 Achievement Unlocked: ${achievement.name}`, 'success');
     }
   });
@@ -498,7 +572,7 @@ function renderScenario(scenario) {
 
   scenario.options.forEach(option => {
     html += `
-      <button class="answer-btn" onclick="selectAnswer('${option.id}')" id="option-${option.id}">
+      <button class="answer-btn" onclick="playClickSound(); selectAnswer('${option.id}')" id="option-${option.id}">
         ${option.text}
       </button>
     `;
@@ -612,7 +686,7 @@ function renderInvestigationTools(scenario) {
   const tools = scenario.tools.map(toolId => {
     const tool = InvestigationTools[toolId];
     return tool ? `
-      <button class="tool-btn" onclick="useTool('${toolId}')">
+      <button class="tool-btn" onclick="playClickSound(); useTool('${toolId}')">
         ${tool.icon} ${tool.name}
       </button>
     ` : '';
@@ -636,7 +710,7 @@ function renderInvestigationTools(scenario) {
 // GAME INTERACTION HANDLERS
 // ========================================
 
-function useTool(toolId) {
+async function useTool(toolId) {
   const tool = InvestigationTools[toolId];
   const scenario = SCENARIOS[gameState.currentScenarioIndex];
   
@@ -654,7 +728,51 @@ function useTool(toolId) {
     analysisTarget = scenario.txData.to || '0x0000000000000000000000000000000000000000';
   }
 
+  // Show loading state
+  const toolResults = document.getElementById('toolResults');
+  toolResults.innerHTML = '<div class="tool-result info"><strong>⏳ Analyzing...</strong></div>';
+
+  // Get basic tool results
   const results = tool.analyze(analysisTarget);
+
+  // Try to enhance with real API data if available
+  let enhancedResults = results;
+  if (typeof blockchainAPI !== 'undefined') {
+    try {
+      enhancedResults = await blockchainAPI.enhanceToolResult(toolId, results, analysisTarget);
+      
+      // If we got real data, add it to the findings
+      if (enhancedResults.realData && enhancedResults.enhanced) {
+        const realData = enhancedResults.realData;
+        results.findings.unshift('🌐 LIVE BLOCKCHAIN DATA:');
+        
+        // Add specific real data based on tool
+        if (toolId === 'gasTracker' && realData.slow) {
+          results.findings.push(`Current Gas: 🐢 ${realData.slow} | ⚡ ${realData.normal} | 🚀 ${realData.fast} gwei`);
+          results.findings.push(`Source: ${realData.source || 'Etherscan'}`);
+        } else if (toolId === 'addressLookup' && realData.balance !== undefined) {
+          results.findings.push(`Balance: ${realData.balance} ETH`);
+          results.findings.push(`Transactions: ${realData.transactionCount}`);
+          results.findings.push(`Estimated Age: ${realData.ageEstimate}`);
+        } else if (toolId === 'contractAnalyzer' && realData.isVerified !== undefined) {
+          results.findings.push(`Verified: ${realData.isVerified ? '✅ YES' : '❌ NO'}`);
+          if (realData.contractName) results.findings.push(`Name: ${realData.contractName}`);
+        } else if (toolId === 'tokenScanner' && realData.riskScore !== undefined) {
+          results.findings.push(`Risk Score: ${realData.riskScore}/100`);
+          results.findings.push(`Honeypot: ${realData.isHoneypot ? '🚨 YES' : '✅ NO'}`);
+          if (realData.warnings) {
+            realData.warnings.forEach(w => results.findings.push(w));
+          }
+        }
+
+        if (realData.note) {
+          results.findings.push(`ℹ️ ${realData.note}`);
+        }
+      }
+    } catch (error) {
+      console.log('API enhancement failed, using simulated data');
+    }
+  }
 
   const resultDiv = document.createElement('div');
   resultDiv.className = `tool-result ${results.type}`;
@@ -663,9 +781,13 @@ function useTool(toolId) {
     ${results.findings.map(f => `<div style="margin-top: 8px;">${f}</div>`).join('')}
   `;
 
-  const toolResults = document.getElementById('toolResults');
   toolResults.innerHTML = '';
   toolResults.appendChild(resultDiv);
+
+  // Play tool sound
+  if (typeof audioManager !== 'undefined') {
+    audioManager.playTool();
+  }
 
   showToast(`Used ${tool.name} (+10 XP)`, 'info');
   checkAchievements();
@@ -692,6 +814,15 @@ function selectAnswer(answerId) {
     optBtn.disabled = true;
   });
 
+  // Play audio feedback
+  if (typeof audioManager !== 'undefined') {
+    if (isCorrect) {
+      audioManager.playSuccess();
+    } else {
+      audioManager.playError();
+    }
+  }
+
   // Update game state
   if (isCorrect) {
     gameState.correctAnswers++;
@@ -699,6 +830,9 @@ function selectAnswer(answerId) {
     if (gameState.streak > gameState.maxStreak) {
       gameState.maxStreak = gameState.streak;
     }
+
+    // Celebrate with confetti!
+    createConfetti();
 
     // Determine skill to level up
     let skillType = 'phishingDetection';
@@ -796,9 +930,22 @@ function loadScenario() {
   
   const scenario = SCENARIOS[gameState.currentScenarioIndex];
   const gameArea = document.getElementById('gameArea');
-  gameArea.innerHTML = renderScenario(scenario);
   
-  updateProgressBar();
+  // Fade out
+  gameArea.style.opacity = '0';
+  gameArea.style.transform = 'translateY(20px)';
+  
+  setTimeout(() => {
+    gameArea.innerHTML = renderScenario(scenario);
+    updateProgressBar();
+    
+    // Fade in
+    setTimeout(() => {
+      gameArea.style.opacity = '1';
+      gameArea.style.transform = 'translateY(0)';
+    }, 50);
+  }, 300);
+  
   window.scrollTo(0, 0);
 }
 

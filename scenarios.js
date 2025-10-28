@@ -954,10 +954,1030 @@ Ledger SAS | 1 rue du Mail, 75002 Paris, France`,
         'Hardware wallet phishing cost users $10M+ in 2024'
       ]
     }
+  },
+
+  {
+    id: 16,
+    category: 'wallet',
+    difficulty: 'hard',
+    type: 'website',
+    title: 'Clipboard Malware Attack',
+    url: 'https://your-computer.local',
+    content: `
+      <div style="max-width: 600px; margin: 0 auto; padding: 30px;">
+        <h2 style="margin-bottom: 20px;">Send Crypto</h2>
+        <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+          <label style="display: block; margin-bottom: 10px; font-weight: bold;">Recipient Address:</label>
+          <input type="text" value="0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-family: monospace; background: white; margin-bottom: 15px;">
+          <p style="font-size: 14px; color: #666; margin-bottom: 20px;">You copied: 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb</p>
+          
+          <div style="background: #FFF3CD; border: 1px solid #FFE69C; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <p style="color: #856404; margin: 0;">⚠️ When you pasted, the address changed to:</p>
+            <p style="color: #856404; font-family: monospace; margin-top: 10px; font-weight: bold;">0x1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p7q8r9s0t</p>
+          </div>
+          
+          <label style="display: block; margin-bottom: 10px; font-weight: bold;">Amount:</label>
+          <input type="text" value="5.0 ETH" readonly style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 20px;">
+          
+          <button style="width: 100%; padding: 15px; background: #0052FF; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer;">
+            Send Transaction
+          </button>
+        </div>
+        <p style="font-size: 12px; color: #999; text-align: center;">The address changed when you pasted it. What's happening?</p>
+      </div>
+    `,
+    question: 'The wallet address changed when you pasted it. What should you do?',
+    correctAnswer: 'malware',
+    options: [
+      { id: 'send', text: 'Send anyway - Probably just a display glitch' },
+      { id: 'malware', text: 'Stop! This is clipboard malware - Do NOT send' },
+      { id: 'verify', text: 'Manually type the address instead of pasting' }
+    ],
+    tools: ['addressLookup'],
+    feedback: {
+      correct: 'Excellent catch! This is clipboard malware/address poisoning. Malware monitors your clipboard and replaces crypto addresses with attacker-controlled addresses. The changed address means your funds would go to the scammer, not your intended recipient. Always verify pasted addresses character-by-character!',
+      incorrect: 'This is clipboard malware! The address changing when pasted means malware is replacing it with a scammer\'s address. Sending = losing your 5 ETH. Always verify pasted addresses match what you copied. Install antivirus and scan your system immediately!',
+      xpReward: 200,
+      redFlags: [
+        'Address changed when pasted (clipboard hijacking)',
+        'Malware monitors clipboard for crypto addresses',
+        'Automatically replaces with attacker\'s address',
+        'Common on Windows systems with malware',
+        'First few/last few characters may look similar (users don\'t check)',
+        'Clipboard malware stole $580M+ in 2024',
+        'Always verify FULL address before sending'
+      ],
+      blockchainInfo: [
+        'Clipboard hijackers monitor for crypto address patterns',
+        'Replace addresses in real-time when you paste',
+        'Attackers use similar-looking addresses (first/last chars match)',
+        'Prevention: Always verify full address character-by-character',
+        'Use address book features in wallets',
+        'Send small test transaction first',
+        'Hardware wallets display address on device',
+        'Clipboard malware is undetectable without verification'
+      ]
+    }
+  },
+
+  {
+    id: 17,
+    category: 'defi',
+    difficulty: 'hard',
+    type: 'website',
+    title: 'Flash Loan Exploit Explanation',
+    url: 'https://education.ethereum.org/defi-concepts',
+    content: `
+      <div style="max-width: 700px; margin: 0 auto; padding: 30px; background: #f8f9fa;">
+        <h1 style="color: #333; margin-bottom: 20px;">Understanding Flash Loans</h1>
+        
+        <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #0052FF;">
+          <h3 style="color: #0052FF; margin-bottom: 15px;">What is a Flash Loan?</h3>
+          <p style="line-height: 1.8; color: #555;">
+            A flash loan is an uncollateralized loan that must be borrowed and repaid within a single blockchain transaction. If not repaid, the entire transaction reverts.
+          </p>
+        </div>
+        
+        <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+          <h3 style="color: #333; margin-bottom: 15px;">Example Attack Vector:</h3>
+          <ol style="line-height: 2; color: #555; padding-left: 20px;">
+            <li>Attacker takes flash loan of $10M in USDC</li>
+            <li>Buys massive amount of TOKEN on DEX #1 (price pumps)</li>
+            <li>Sells TOKEN on DEX #2 at inflated price</li>
+            <li>Repays flash loan + profit</li>
+            <li>Entire attack happens in ONE transaction</li>
+          </ol>
+        </div>
+        
+        <div style="background: #FFF3CD; padding: 20px; border-radius: 10px; border: 2px solid #FFE69C;">
+          <p style="color: #856404; margin: 0;"><strong>⚠️ Question:</strong> Someone on Twitter DMs you saying "I can teach you how to do flash loan attacks for profit. It's 100% legal and automated. Join my course for $500."</p>
+        </div>
+      </div>
+    `,
+    question: 'Should you pay for this "flash loan attack course"?',
+    correctAnswer: 'scam',
+    options: [
+      { id: 'join', text: 'Join the course - Flash loans sound profitable!' },
+      { id: 'scam', text: 'Scam - Legitimate flash loan opportunities don\'t need courses' },
+      { id: 'research', text: 'Research flash loans first before deciding' }
+    ],
+    tools: ['urlAnalyzer'],
+    feedback: {
+      correct: 'Perfect! While flash loans are real, "flash loan attack courses" are scams. Real flash loan opportunities require: (1) finding exploitable protocols, (2) advanced smart contract dev skills, (3) substantial capital for gas fees. Anyone selling a course is scamming. Real attackers don\'t share methods. Most "attacks" are now patched.',
+      incorrect: 'This is a scam! Real flash loan arbitrage requires expert-level blockchain dev skills and finding exploitable protocols (which are rare). No course can teach this. The $500 course teaches nothing valuable. Real attackers don\'t advertise. Learn from free resources (not paid courses).',
+      xpReward: 200,
+      redFlags: [
+        'Unsolicited DM about making money',
+        'Claims flash loan attacks are "100% legal" (they\'re ethically gray)',
+        'Charges $500 for information available free online',
+        'Real flash loan opportunities require advanced dev skills',
+        'Most exploitable protocols already patched',
+        'Successful attackers don\'t sell courses',
+        'This is a "get rich quick" scam',
+        'No guaranteed profits in flash loan arbitrage'
+      ],
+      blockchainInfo: [
+        'Flash loans are real DeFi primitive (Aave, dYdX)',
+        'Used legitimately for arbitrage and collateral swaps',
+        'Famous exploits: bZx ($350k), Harvest ($24M)',
+        'Require: Solidity skills, finding vulnerabilities, fast execution',
+        'Gas fees can be $1,000+ per attempt',
+        'Most opportunities are found by security researchers',
+        'Ethical gray area: exploiting code vs exploiting users',
+        'Learn from: Damn Vulnerable DeFi (free), not paid courses'
+      ]
+    }
+  },
+
+  {
+    id: 18,
+    category: 'nft',
+    difficulty: 'hard',
+    type: 'transaction',
+    title: 'Malicious NFT Mint Contract',
+    txData: {
+      from: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb',
+      to: '0x9876...4321 (Unverified Contract)',
+      value: '0.08 ETH',
+      gasLimit: '350000',
+      gasPrice: '35 gwei',
+      data: '0xa0712d68...'
+    },
+    decodedFunction: 'mint(uint256 quantity)',
+    decodedParams: {
+      quantity: '1 NFT',
+      mintPrice: '0.08 ETH',
+      contractName: 'BoredDogeYachtClub',
+      totalSupply: '10000',
+      WARNING: '⚠️ Contract includes additional hidden function calls'
+    },
+    question: 'You\'re about to mint a trending NFT. What\'s suspicious here?',
+    correctAnswer: 'malicious',
+    options: [
+      { id: 'mint', text: 'Mint it - 0.08 ETH is a fair price' },
+      { id: 'malicious', text: 'Reject - Unverified contract with hidden functions' },
+      { id: 'check', text: 'Check the contract on Etherscan first' }
+    ],
+    tools: ['contractAnalyzer', 'addressLookup'],
+    feedback: {
+      correct: 'Excellent! Unverified contracts are huge red flags for NFT mints. "Hidden function calls" means the contract could drain your wallet, steal other NFTs, or create malicious approvals. Real projects verify contracts on Etherscan. The copied name "BoredDogeYachtClub" (mixing BAYC + Doge) is also suspicious.',
+      incorrect: 'This is a malicious contract! Unverified + hidden functions = wallet drainer. When you mint, it could drain all your tokens via hidden setApprovalForAll(). Always verify: (1) Contract is verified on Etherscan, (2) Official mint announced on project Twitter, (3) Check contract code.',
+      xpReward: 200,
+      redFlags: [
+        'Unverified contract on Etherscan',
+        'Warning about "hidden function calls"',
+        'High gas limit (350k is excessive for simple mint)',
+        'Name combines two projects (BAYC + Doge)',
+        'No way to audit what contract actually does',
+        'Real NFT projects verify contracts',
+        'Minting could trigger wallet drainer',
+        'Should check official project Twitter for mint link'
+      ],
+      blockchainInfo: [
+        'Malicious NFT contracts can drain your wallet when minting',
+        'Hidden functions: setApprovalForAll(), transferFrom()',
+        'Verified contracts show source code on Etherscan',
+        'Real projects: Verified contract + official announcement',
+        'Gas limit hints at complexity (simple mint = ~100k gas)',
+        'Always mint from official project website only',
+        'Check contract address matches official announcement',
+        'NFT mint scams stole $100M+ in 2024'
+      ]
+    }
+  },
+
+  {
+    id: 19,
+    category: 'layer2',
+    difficulty: 'medium',
+    type: 'email',
+    title: 'zkSync Airdrop Phishing',
+    from: 'airdrop@zksync-claim.io',
+    to: 'you@email.com',
+    subject: '🎉 You\'re Eligible for 3,500 ZK Tokens!',
+    body: `Dear zkSync User,
+
+Congratulations! Based on your transaction history on zkSync Era, you qualify for the zkSync airdrop.
+
+Your Allocation: 3,500 ZK tokens
+Estimated Value: $7,350 USD
+
+Claim Period: Limited to 14 days from notification
+
+TO CLAIM YOUR TOKENS:
+1. Visit: https://claim.zksync-airdrop.io
+2. Connect your wallet
+3. Verify your eligibility on-chain
+4. Approve the claim transaction
+
+⚠️ IMPORTANT: Due to Ethereum gas costs, you must have at least 0.05 ETH in your wallet to process the claim. This covers the on-chain verification and distribution gas fees.
+
+If your wallet balance is insufficient, the claim will fail and your tokens will be redistributed to other users.
+
+Claim now: https://claim.zksync-airdrop.io/verify
+
+Best regards,
+The zkSync Team
+
+---
+Matter Labs | Building zkSync - Scaling Ethereum`,
+    question: 'Is this zkSync airdrop legitimate?',
+    correctAnswer: 'scam',
+    options: [
+      { id: 'claim', text: 'Claim it - I used zkSync Era!' },
+      { id: 'scam', text: 'Scam - Multiple red flags present' },
+      { id: 'verify', text: 'Check zkSync\'s official Twitter first' }
+    ],
+    tools: ['urlAnalyzer', 'domainLookup'],
+    feedback: {
+      correct: 'Perfect! This is a phishing scam. Real zkSync domain: zksync.io (not zksync-airdrop.io). Requiring 0.05 ETH balance is a HUGE red flag - attackers want you to have ETH they can steal. Real airdrops never require minimum balance. Always verify airdrops on official Twitter (@zksync)!',
+      incorrect: 'This is a scam! Real domain: zksync.io vs zksync-airdrop.io (fake). The "0.05 ETH minimum" is to ensure you have funds to steal. Connecting = wallet drainer. zkSync announces airdrops via official Twitter @zksync only. Never trust unsolicited emails!',
+      xpReward: 150,
+      redFlags: [
+        'Fake domain: zksync-airdrop.io (real: zksync.io)',
+        'Requires 0.05 ETH minimum (to ensure you have funds to steal)',
+        'Unsolicited email about airdrop',
+        'Creates urgency: "14 days" deadline',
+        'Generic greeting, no personal details',
+        'Real airdrops announced on official @zksync Twitter',
+        'Claims high value to create excitement',
+        'No way to verify eligibility before connecting'
+      ],
+      blockchainInfo: [
+        'zkSync is a real Ethereum Layer 2 scaling solution',
+        'Real zkSync: zksync.io, Twitter @zksync',
+        'Layer 2 airdrops are announced officially first',
+        'Legitimate airdrops NEVER require minimum balance',
+        'Real zkSync airdrop happened June 2024',
+        'Always check official Discord/Twitter for airdrop info',
+        'Layer 2 airdrop scams increased 500% in 2024',
+        'Claiming on fake sites = wallet drain'
+      ]
+    }
+  },
+
+  {
+    id: 20,
+    category: 'social',
+    difficulty: 'medium',
+    type: 'chat',
+    title: 'Fake Job Offer Scam',
+    messages: [
+      { sender: 'them', text: 'Hi! I saw your profile and we\'re impressed with your background.', time: '11:15 AM', from: 'Sarah Chen - Coinbase Recruiter' },
+      { sender: 'you', text: 'Thanks! What position?', time: '11:16 AM', from: 'You' },
+      { sender: 'them', text: 'We have an opening for Blockchain Developer - Remote, $180k-$220k + equity.', time: '11:16 AM', from: 'Sarah Chen - Coinbase Recruiter' },
+      { sender: 'them', text: 'The role involves smart contract auditing and protocol development.', time: '11:17 AM', from: 'Sarah Chen - Coinbase Recruiter' },
+      { sender: 'you', text: 'That sounds great! What\'s the process?', time: '11:18 AM', from: 'You' },
+      { sender: 'them', text: 'First, we need to verify your identity for compliance. Can you create a Coinbase Wallet and send us your address?', time: '11:19 AM', from: 'Sarah Chen - Coinbase Recruiter' },
+      { sender: 'them', text: 'Also, for international payments setup, we need you to purchase $500 in USDC and send to our HR wallet for verification. You\'ll be reimbursed on your first paycheck.', time: '11:20 AM', from: 'Sarah Chen - Coinbase Recruiter' },
+      { sender: 'them', text: 'This is standard procedure for crypto companies. Here\'s the address: 0x1a2b3c...', time: '11:21 AM', from: 'Sarah Chen - Coinbase Recruiter' }
+    ],
+    question: 'Is this a legitimate Coinbase job offer?',
+    correctAnswer: 'scam',
+    options: [
+      { id: 'send', text: 'Send the $500 - Seems like standard crypto verification' },
+      { id: 'scam', text: 'Scam - Real companies never ask for money upfront' },
+      { id: 'verify', text: 'Ask to verify via official Coinbase Careers portal' }
+    ],
+    tools: ['addressLookup'],
+    feedback: {
+      correct: 'Perfect! This is a fake job offer scam. Real companies NEVER ask candidates to send crypto for "verification" or "payment setup". Coinbase recruits through careers.coinbase.com and LinkedIn (verified profiles). The $500 request is pure theft. Always verify recruiters through official channels!',
+      incorrect: 'This is a job offer scam! No legitimate company asks candidates to send money. The $500 goes to the scammer. Real Coinbase recruits via careers.coinbase.com with verified recruiters. Check LinkedIn profiles, use official portals, never send money in job processes.',
+      xpReward: 150,
+      redFlags: [
+        'Asks candidate to send $500 in crypto',
+        'Claims it\'s "standard procedure" (it\'s not)',
+        'Promise of reimbursement (never happens)',
+        'Contacted via DM instead of official channels',
+        'Too good to be true salary range',
+        'Immediate offer without formal interview process',
+        'Real companies use official job portals',
+        'Coinbase recruits through careers.coinbase.com'
+      ],
+      blockchainInfo: [
+        'Fake job scams target crypto enthusiasts',
+        'Real crypto companies: Coinbase, Binance, Kraken use official portals',
+        'Legitimate recruiters have verified LinkedIn profiles',
+        'Never send money as part of job application process',
+        'Scammers impersonate HR/recruiters on Telegram/Discord',
+        'Verify recruiter: Check email domain, LinkedIn, company website',
+        'Real job offers: Formal interviews, written offers, no upfront payments',
+        'Fake job scams stole $50M+ from crypto community in 2024'
+      ]
+    }
+  },
+
+  {
+    id: 21,
+    category: 'defi',
+    difficulty: 'medium',
+    type: 'website',
+    title: 'Fake Curve Finance Pool',
+    url: 'https://curve.fi/pool/0xabcd1234',
+    content: `
+      <div style="max-width: 600px; margin: 0 auto; padding: 30px; background: #f5f5f5;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+          <div style="width: 50px; height: 50px; background: #FF0000; border-radius: 50%;"></div>
+          <h1 style="color: #FF0000; margin: 0;">Curve Finance</h1>
+        </div>
+        
+        <div style="background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px;">
+          <h2 style="margin-bottom: 20px;">USDT/USDC/DAI Mega Pool</h2>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+              <div style="font-size: 2em; font-weight: bold; color: #28a745; margin-bottom: 5px;">156%</div>
+              <div style="color: #666; font-size: 14px;">APY</div>
+            </div>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
+              <div style="font-size: 2em; font-weight: bold; color: #007bff; margin-bottom: 5px;">$2.4M</div>
+              <div style="color: #666; font-size: 14px;">TVL</div>
+            </div>
+          </div>
+          
+          <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <p style="color: #2E7D32; margin: 0; font-size: 14px;">
+              <strong>🎉 Special Event:</strong> Curve is incentivizing this pool with extra CRV rewards for the next 48 hours!
+            </p>
+          </div>
+          
+          <button style="width: 100%; padding: 18px; background: #FF0000; color: white; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer;">
+            Deposit Stablecoins
+          </button>
+          
+          <p style="margin-top: 15px; font-size: 13px; color: #666; text-align: center;">
+            Pool address: 0xabcd1234... | Created 3 days ago
+          </p>
+        </div>
+      </div>
+    `,
+    question: 'Should you deposit your stablecoins into this Curve pool?',
+    correctAnswer: 'fake',
+    options: [
+      { id: 'deposit', text: 'Deposit - 156% APY on stablecoins is amazing!' },
+      { id: 'fake', text: 'Fake pool - Multiple red flags present' },
+      { id: 'verify', text: 'Check official Curve website first' }
+    ],
+    tools: ['contractAnalyzer', 'urlAnalyzer', 'tokenScanner'],
+    feedback: {
+      correct: 'Excellent! This is a fake Curve pool. Red flags: (1) 156% APY on stablecoins is impossible sustainably, (2) Pool created only 3 days ago, (3) Low TVL of $2.4M (real Curve pools have $100M+), (4) "Special event" urgency tactic. Real Curve pools: curve.fi with verified contracts and high TVL.',
+      incorrect: 'This is a fake Curve pool scam! 156% APY on stablecoins is unsustainable. Real Curve pools: 2-8% APY with $100M+ TVL. This pool (3 days old, $2.4M) would drain your deposits. Always verify pool addresses on official curve.fi!',
+      xpReward: 150,
+      redFlags: [
+        '156% APY is impossibly high for stablecoin pool',
+        'Pool created only 3 days ago (extremely new)',
+        'Low TVL: $2.4M (real Curve pools have $100M+)',
+        'Urgency tactic: "48 hours special event"',
+        'Real Curve stablecoin pools: 2-8% APY typically',
+        'Should verify pool address on curve.fi',
+        'Depositing = funds stolen by fake pool contract'
+      ],
+      blockchainInfo: [
+        'Curve Finance is real DeFi protocol for stablecoin swaps',
+        'Real Curve: curve.fi with verified contracts',
+        'Legitimate Curve pools have high TVL ($100M+)',
+        'Stablecoin pool APY: realistically 2-8%, not 156%',
+        'New pools are suspicious (established pools are safer)',
+        'Fake Curve pools copy UI but use malicious contracts',
+        'Always verify pool address on official Curve site',
+        'Curve pool scams cost users $40M+ in 2024'
+      ]
+    }
+  },
+
+  {
+    id: 22,
+    category: 'nft',
+    difficulty: 'easy',
+    type: 'chat',
+    title: 'Fake Blur Airdrop',
+    messages: [
+      { sender: 'them', text: '🎉 BLUR AIRDROP SEASON 3 🎉', time: '4:20 PM', from: 'Blur_Official' },
+      { sender: 'them', text: 'Congratulations! Your wallet qualifies for 15,000 BLUR tokens', time: '4:20 PM', from: 'Blur_Official' },
+      { sender: 'them', text: 'Value: ~$4,500 USD', time: '4:20 PM', from: 'Blur_Official' },
+      { sender: 'them', text: 'Claim here: https://blur.io.claim-s3.xyz', time: '4:21 PM', from: 'Blur_Official' },
+      { sender: 'them', text: '⏰ Claim period ends in 24 hours!', time: '4:21 PM', from: 'Blur_Official' }
+    ],
+    question: 'Should you claim this Blur airdrop?',
+    correctAnswer: 'fake',
+    options: [
+      { id: 'claim', text: 'Claim immediately - Free $4,500!' },
+      { id: 'fake', text: 'Fake - Check Blur\'s official Twitter first' },
+      { id: 'verify', text: 'Verify the domain matches official Blur' }
+    ],
+    tools: ['urlAnalyzer', 'domainLookup'],
+    feedback: {
+      correct: 'Perfect! Fake Blur airdrop. Real Blur domain: blur.io (not blur.io.claim-s3.xyz). The "Blur_Official" username can be created by anyone. Real Blur airdrops announced on verified Twitter @blur_io. Connecting to fake site = wallet drain. Always verify on official channels!',
+      incorrect: 'This is a fake airdrop! Real domain: blur.io vs blur.io.claim-s3.xyz (subdomain trick). Real Blur announces on @blur_io (verified). Claiming = wallet drainer approval. Check official Twitter before clicking any airdrop links!',
+      xpReward: 100,
+      redFlags: [
+        'Suspicious domain: blur.io.claim-s3.xyz (actual domain is claim-s3.xyz)',
+        'Unsolicited message about free money',
+        'Creates urgency: "24 hours"',
+        'Username "Blur_Official" can be faked',
+        'Real Blur domain: blur.io only',
+        'No announcement on verified @blur_io Twitter',
+        'Too good to be true: $4,500 free'
+      ],
+      blockchainInfo: [
+        'Blur is real NFT marketplace competing with OpenSea',
+        'Real Blur: blur.io, Twitter @blur_io (verified)',
+        'Blur did real airdrops in 2023 (Season 1 & 2)',
+        'Airdrops announced on official Twitter first',
+        'Fake airdrops use similar domains (blur.io.xxx.com)',
+        'Connecting to fake sites = approve wallet drainers',
+        'NFT marketplace scams increased 300% in 2024'
+      ]
+    }
+  },
+
+  {
+    id: 23,
+    category: 'stablecoin',
+    difficulty: 'easy',
+    type: 'website',
+    title: 'High-Yield Stablecoin Scam',
+    url: 'https://stable-earn.finance',
+    content: `
+      <div style="max-width: 650px; margin: 0 auto; padding: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h1 style="font-size: 2.5em; margin-bottom: 10px;">StableEarn Protocol</h1>
+        <p style="font-size: 1.2em; opacity: 0.9; margin-bottom: 40px;">Earn Guaranteed Returns on Your Stablecoins</p>
+        
+        <div style="background: rgba(255,255,255,0.15); padding: 30px; border-radius: 15px; margin-bottom: 30px; backdrop-filter: blur(10px);">
+          <div style="text-align: center; margin-bottom: 25px;">
+            <div style="font-size: 4em; font-weight: bold; margin-bottom: 10px;">24% APY</div>
+            <div style="font-size: 1.2em; opacity: 0.9;">Guaranteed Fixed Returns</div>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="margin: 0; line-height: 1.8;">
+              Deposit USDT, USDC, or DAI and earn industry-leading 24% APY. Our proprietary trading algorithms generate consistent profits across DeFi protocols.
+            </p>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px;">
+            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 2em; font-weight: bold;">$87M</div>
+              <div style="font-size: 0.9em; opacity: 0.8;">Total Value Locked</div>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+              <div style="font-size: 2em; font-weight: bold;">42K</div>
+              <div style="font-size: 0.9em; opacity: 0.8;">Active Users</div>
+            </div>
+          </div>
+          
+          <button style="width: 100%; padding: 20px; background: white; color: #667eea; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer;">
+            Start Earning 24% APY
+          </button>
+        </div>
+        
+        <div style="text-align: center; font-size: 14px; opacity: 0.8;">
+          <p>✅ Audited by CertiK | 🔒 Fully Insured | 💰 Instant Withdrawals</p>
+        </div>
+      </div>
+    `,
+    question: 'Should you deposit stablecoins to earn 24% APY?',
+    correctAnswer: 'ponzi',
+    options: [
+      { id: 'deposit', text: 'Deposit - 24% on stablecoins is great!' },
+      { id: 'ponzi', text: 'Likely Ponzi scheme - Unsustainable returns' },
+      { id: 'research', text: 'Research their trading strategy first' }
+    ],
+    tools: ['urlAnalyzer', 'contractAnalyzer'],
+    feedback: {
+      correct: 'Excellent judgment! 24% APY on stablecoins is a HUGE red flag. Legitimate stablecoin yields: 2-8% (Aave, Compound). 24% is Ponzi scheme territory (like Celsius, BlockFi that collapsed). They pay early depositors with new deposits until it collapses. "Guaranteed" returns don\'t exist in crypto. Run away!',
+      incorrect: 'This is likely a Ponzi scheme! 24% APY on stablecoins is mathematically unsustainable. Real yields: 2-8%. This will collapse like Celsius (paid 18%, collapsed in 2022). They pay old investors with new deposits. "Guaranteed" + "24%" = scam. Only use established protocols!',
+      xpReward: 150,
+      redFlags: [
+        '24% APY is impossibly high for stablecoins (real: 2-8%)',
+        '"Guaranteed returns" - nothing is guaranteed in crypto',
+        'No explanation of how they generate 24%',
+        'Claims of "proprietary trading algorithms" (vague)',
+        'Similar to Celsius (18% APY, collapsed in 2022)',
+        'No transparent proof of yields',
+        'CertiK audit doesn\'t validate business model',
+        '"Fully insured" claim is meaningless without details'
+      ],
+      blockchainInfo: [
+        'Legitimate stablecoin yields: 2-8% on Aave, Compound',
+        'High yields come from: leverage risk, liquidation risk, or Ponzi',
+        '24% APY requires 2% monthly returns (unsustainable)',
+        'Celsius promised 18%, collapsed owing $4.7B (2022)',
+        'BlockFi offered 8%, collapsed (2022)',
+        'If returns seem too good to be true, they are',
+        'Ponzi schemes: Use new deposits to pay old investors',
+        'Only use transparent, established DeFi protocols'
+      ]
+    }
+  },
+
+  {
+    id: 24,
+    category: 'layer2',
+    difficulty: 'medium',
+    type: 'website',
+    title: 'Optimism Bridge Phishing',
+    url: 'https://bridge.optimism.io.network-portal.com',
+    content: `
+      <div style="max-width: 600px; margin: 0 auto; padding: 30px; background: #FF0420;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+          <div style="width: 50px; height: 50px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #FF0420; font-size: 24px;">Ξ</div>
+          <h1 style="color: white; margin: 0;">Optimism Bridge</h1>
+        </div>
+        
+        <div style="background: white; padding: 25px; border-radius: 15px;">
+          <h2 style="color: #333; margin-bottom: 20px;">Bridge to Optimism</h2>
+          
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">From</div>
+            <div style="font-size: 18px; font-weight: bold; color: #333;">Ethereum Mainnet</div>
+          </div>
+          
+          <div style="text-align: center; margin: 15px 0; font-size: 24px;">↓</div>
+          
+          <div style="background: #FFF5F5; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #FF0420;">
+            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">To</div>
+            <div style="font-size: 18px; font-weight: bold; color: #FF0420;">Optimism Network</div>
+          </div>
+          
+          <div style="background: #FFF3CD; border: 1px solid #FFE69C; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+            <p style="color: #856404; margin: 0; font-size: 14px;">
+              <strong>⚡ Fast Bridge:</strong> Complete your bridge in 2 minutes instead of 7 days. Limited time offer!
+            </p>
+          </div>
+          
+          <button style="width: 100%; padding: 20px; background: #FF0420; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; margin-bottom: 15px;">
+            Connect Wallet & Bridge
+          </button>
+          
+          <p style="font-size: 12px; color: #666; text-align: center;">Bridge Fee: 0.5% | Instant confirmation</p>
+        </div>
+      </div>
+    `,
+    question: 'Should you use this Optimism bridge?',
+    correctAnswer: 'fake',
+    options: [
+      { id: 'bridge', text: 'Bridge - 2 minutes is much faster than 7 days!' },
+      { id: 'fake', text: 'Fake bridge - Domain and claims are suspicious' },
+      { id: 'verify', text: 'Check official Optimism website for bridge link' }
+    ],
+    tools: ['urlAnalyzer', 'domainLookup'],
+    feedback: {
+      correct: 'Perfect! Fake bridge scam. Real Optimism: bridge.optimism.io (not bridge.optimism.io.network-portal.com). The actual domain is "network-portal.com". "2 minute bridge" is impossible - real Optimism withdrawal takes 7 days (security feature). Connecting = wallet drain. Use app.optimism.io only!',
+      incorrect: 'Fake bridge! Real domain: bridge.optimism.io. The URL "bridge.optimism.io.network-portal.com" is actually hosted on "network-portal.com". Real Optimism withdrawals take 7 days (can\'t be instant). Connecting = drained wallet. Use official app.optimism.io!',
+      xpReward: 150,
+      redFlags: [
+        'Fake domain: bridge.optimism.io.network-portal.com (subdomain trick)',
+        'Actual domain is "network-portal.com" not optimism.io',
+        'Claims 2-minute bridge (impossible - real takes 7 days)',
+        '"Limited time offer" urgency tactic',
+        'Real Optimism bridge: app.optimism.io or bridge.optimism.io',
+        'Withdrawal period exists for security (fraud proofs)',
+        'No way to bypass 7-day withdrawal on Optimism'
+      ],
+      blockchainInfo: [
+        'Optimism is Ethereum Layer 2 (optimistic rollup)',
+        'Real bridge: app.optimism.io/bridge',
+        'Optimism withdrawals: 7 days (security feature for fraud proofs)',
+        'Deposits (ETH → OP): instant (~1 min)',
+        'Withdrawals (OP → ETH): 7 days mandatory',
+        'No legitimate "fast bridge" can bypass this',
+        'Fake bridges are common scam (stolen $200M+ in 2024)',
+        'Always use official protocol websites for bridging'
+      ]
+    }
+  },
+
+  {
+    id: 25,
+    category: 'wallet',
+    difficulty: 'medium',
+    type: 'email',
+    title: 'Tax Scam Email',
+    from: 'compliance@crypto-tax-authority.gov',
+    to: 'you@email.com',
+    subject: 'URGENT: Unpaid Crypto Tax Liability - Action Required',
+    body: `Dear Taxpayer,
+
+Our records indicate you have unreported cryptocurrency gains totaling $47,382 from 2023-2024 trading activity.
+
+TOTAL OWED: $14,892.40 (including penalties)
+
+Your wallet addresses have been flagged by our blockchain monitoring system:
+- 0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb
+- 0x8e9f...  (and 3 others)
+
+IMMEDIATE ACTION REQUIRED:
+To avoid criminal prosecution and asset seizure, you must pay your tax liability within 72 hours.
+
+Payment Instructions:
+1. Purchase $14,892.40 in Bitcoin
+2. Send to: bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+3. Email transaction ID to: tax-payments@crypto-tax-authority.gov
+
+Failure to comply will result in:
+- Arrest warrant issued
+- Bank accounts frozen
+- Passport revoked
+- Criminal charges filed
+
+This is your final notice. Do not contact the IRS or local authorities - this matter is being handled by our specialized Cryptocurrency Tax Enforcement Division.
+
+Pay immediately to resolve this matter: https://crypto-tax-payment.gov/pay-now
+
+Compliance Officer: Agent Robert Martinez
+Badge #: CT-2847
+Direct Line: +1-800-555-SCAM (Do not call IRS directly)
+
+Internal Revenue Service - Cryptocurrency Division`,
+    question: 'How should you respond to this tax notice?',
+    correctAnswer: 'scam',
+    options: [
+      { id: 'pay', text: 'Pay immediately - I don\'t want to be arrested!' },
+      { id: 'scam', text: 'Scam - IRS never demands Bitcoin payment' },
+      { id: 'call', text: 'Call the IRS directly to verify' }
+    ],
+    tools: ['urlAnalyzer', 'domainLookup'],
+    feedback: {
+      correct: 'Perfect! Classic IRS impersonation scam. Red flags: (1) IRS NEVER demands Bitcoin, (2) IRS never threatens immediate arrest, (3) IRS contacts via official mail first, (4) Fake domain: crypto-tax-authority.gov, (5) IRS never says "don\'t contact IRS". Real IRS: irs.gov, they send physical letters first.',
+      incorrect: 'This is an IRS impersonation scam! IRS never demands Bitcoin or threatens arrest. Real IRS process: Physical letter → phone call → negotiation. They never use "crypto-tax-authority.gov" domains. Report to IRS.gov. Never pay cryptocurrency to "tax authorities"!',
+      xpReward: 150,
+      redFlags: [
+        'IRS NEVER accepts Bitcoin payments',
+        'Threatens immediate arrest (IRS doesn\'t do this)',
+        'Demands payment within 72 hours',
+        'Tells you NOT to contact IRS (huge red flag)',
+        'Fake domain: crypto-tax-authority.gov',
+        'Uses fear tactics: arrest, asset seizure, passport',
+        'Real IRS sends physical mail first, never email',
+        'No legitimate "Cryptocurrency Tax Enforcement Division"'
+      ],
+      blockchainInfo: [
+        'IRS contacts taxpayers via physical mail (USPS) first',
+        'IRS accepts: check, money order, credit card (not crypto)',
+        'Tax disputes: negotiation process, never threats',
+        'Real IRS: irs.gov or 1-800-829-1040',
+        'Crypto taxes are real but process is legitimate',
+        'File taxes properly: use crypto tax software (Koinly, CoinTracker)',
+        'If you owe taxes: work with IRS payment plans',
+        'IRS impersonation scams stole $30M+ in 2024'
+      ]
+    }
+  },
+
+  {
+    id: 26,
+    category: 'defi',
+    difficulty: 'easy',
+    type: 'website',
+    title: 'Fake PancakeSwap on Wrong Chain',
+    url: 'https://pancakeswap.finance',
+    content: `
+      <div style="max-width: 600px; margin: 0 auto; padding: 30px; background: linear-gradient(135deg, #D4AF37 0%, #C9A961 100%);">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 30px;">
+          <div style="font-size: 3em;">🥞</div>
+          <h1 style="color: white; margin: 0;">PancakeSwap</h1>
+        </div>
+        
+        <div style="background: white; padding: 25px; border-radius: 15px;">
+          <h2 style="color: #333; margin-bottom: 20px;">Swap Tokens</h2>
+          
+          <div style="background: #FFE5E5; border: 2px solid #FF6B6B; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+            <p style="color: #C92A2A; margin: 0; font-weight: bold;">⚠️ You are connected to Ethereum Mainnet</p>
+            <p style="color: #C92A2A; margin: 10px 0 0 0; font-size: 14px;">PancakeSwap works on Ethereum. Continue to swap.</p>
+          </div>
+          
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span style="color: #666;">From</span>
+              <span style="color: #666;">Balance: 5.0 ETH</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <input type="text" placeholder="0.0" value="1.0" style="border: none; background: transparent; font-size: 24px; width: 60%;" />
+              <div style="background: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">ETH</div>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin: 15px 0; font-size: 24px;">↓</div>
+          
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span style="color: #666;">To (estimated)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="font-size: 24px;">1,847</div>
+              <div style="background: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;">USDT</div>
+            </div>
+          </div>
+          
+          <button style="width: 100%; padding: 20px; background: #D4AF37; color: white; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer;">
+            Swap Now
+          </button>
+        </div>
+      </div>
+    `,
+    question: 'Should you proceed with this PancakeSwap swap on Ethereum?',
+    correctAnswer: 'wrong',
+    options: [
+      { id: 'swap', text: 'Swap - Looks like normal PancakeSwap' },
+      { id: 'wrong', text: 'Wrong network - PancakeSwap is on BNB Chain, not Ethereum' },
+      { id: 'verify', text: 'Check which networks PancakeSwap actually supports' }
+    ],
+    tools: ['urlAnalyzer'],
+    feedback: {
+      correct: 'Excellent! PancakeSwap is ONLY on BNB Chain (Binance Smart Chain), NOT Ethereum. This is a scam impersonating PancakeSwap on the wrong network. Real PancakeSwap: pancakeswap.finance, but ONLY works on BNB Chain. Swapping here = funds stolen. Always verify protocol\'s supported networks!',
+      incorrect: 'This is a scam! PancakeSwap operates ONLY on BNB Chain, never Ethereum. The warning "You are connected to Ethereum" should make you leave immediately. Swapping = losing your ETH. Real PancakeSwap: pancakeswap.finance on BNB Chain only!',
+      xpReward: 100,
+      redFlags: [
+        'PancakeSwap is ONLY on BNB Chain (Binance Smart Chain)',
+        'Site shows Ethereum network (wrong blockchain)',
+        'Says "PancakeSwap works on Ethereum" (false)',
+        'Real PancakeSwap warns you if on wrong network',
+        'Should prompt you to switch to BNB Chain',
+        'This is an imposter site stealing the brand',
+        'Swapping = funds to scammer contract'
+      ],
+      blockchainInfo: [
+        'PancakeSwap: BNB Chain DEX (like Uniswap for BSC)',
+        'Real site: pancakeswap.finance (BNB Chain only)',
+        'PancakeSwap never operated on Ethereum',
+        'Each DEX is specific to its blockchain',
+        'Ethereum DEXes: Uniswap, SushiSwap, Curve',
+        'BNB Chain DEXes: PancakeSwap, BakerySwap',
+        'Always verify which networks a protocol supports',
+        'Cross-chain scams: Same brand, wrong network'
+      ]
+    }
+  },
+
+  {
+    id: 27,
+    category: 'social',
+    difficulty: 'hard',
+    type: 'chat',
+    title: 'Pig Butchering - Investment Phase',
+    messages: [
+      { sender: 'them', text: 'Good morning! 💕', time: 'Week 6, Day 2', from: 'Michelle (Singapore)' },
+      { sender: 'you', text: 'Morning! How are you?', time: 'Week 6, Day 2', from: 'You' },
+      { sender: 'them', text: 'I\'m great! I\'ve been thinking a lot about our future together ❤️', time: 'Week 6, Day 2', from: 'Michelle (Singapore)' },
+      { sender: 'them', text: 'You know I told you about my trading on CryptoWealth Pro? I made another $12k this week!', time: 'Week 6, Day 2', from: 'Michelle (Singapore)' },
+      { sender: 'them', text: '*screenshot of trading dashboard showing $87,450 balance*', time: 'Week 6, Day 3', from: 'Michelle (Singapore)' },
+      { sender: 'them', text: 'I really want you to try it. Even just $2,000 to start. My uncle can give you VIP access.', time: 'Week 6, Day 3', from: 'Michelle (Singapore)' },
+      { sender: 'you', text: 'I don\'t know... $2k is a lot for me right now', time: 'Week 6, Day 3', from: 'You' },
+      { sender: 'them', text: 'I understand baby. But think about OUR future. Once we both build wealth, we can finally meet in person and start our life together 💑', time: 'Week 6, Day 3', from: 'Michelle (Singapore)' },
+      { sender: 'them', text: 'I can help you! I\'ll guide you on every trade. We\'ll grow our wealth TOGETHER.', time: 'Week 6, Day 3', from: 'Michelle (Singapore)' },
+      { sender: 'them', text: 'Plus, if you deposit $2k today, the platform is running a 20% bonus promotion. You\'ll start with $2,400!', time: 'Week 6, Day 4', from: 'Michelle (Singapore)' }
+    ],
+    question: 'After 6 weeks of chatting, Michelle wants you to invest $2k. What is this?',
+    correctAnswer: 'pig_butchering',
+    options: [
+      { id: 'invest', text: 'Invest the $2k - She\'s shown me her success' },
+      { id: 'pig_butchering', text: 'Classic pig butchering scam - End contact immediately' },
+      { id: 'video', text: 'Ask for video call first before investing' }
+    ],
+    tools: ['urlAnalyzer'],
+    feedback: {
+      correct: 'PERFECT! This is the "slaughter" phase of pig butchering (杀猪盘). After 6 weeks of building romance, they push the investment. CryptoWealth Pro is a fake platform - you\'ll see fake profits but can\'t withdraw. The "uncle", screenshots, "bonus" are all fabricated. Once you deposit, they\'ll ask for more. Then disappear. Block immediately!',
+      incorrect: 'This is PIG BUTCHERING SCAM! After 6 weeks of romance building, they push fake investment. CryptoWealth Pro is fake platform. You\'ll deposit $2k, see fake profits, try to withdraw → they\'ll ask for "taxes" or "fees". You never get money back. Romance is fake. Block and report!',
+      xpReward: 250,
+      redFlags: [
+        '6 weeks of relationship building before money request',
+        'Mixes romance with investment pressure',
+        '"Our future together" emotional manipulation',
+        'Shows fake trading screenshots as "proof"',
+        'Uncle with "VIP access" (part of the story)',
+        'Platform you\'ve never heard of: CryptoWealth Pro',
+        '20% bonus is classic scam hook',
+        'Guides you on trades (controlling the narrative)',
+        'Haven\'t met in person after 6 weeks',
+        'Started on dating app/social media'
+      ],
+      blockchainInfo: [
+        'Pig butchering (杀猪盘) = Chinese term for long-con romance scam',
+        'Phase 1 (1-4 weeks): Build trust/romance',
+        'Phase 2 (4-8 weeks): Introduce "investment opportunity"',
+        'Phase 3: Show fake profits, encourage larger deposits',
+        'Phase 4: Victim can\'t withdraw, asked for "taxes"',
+        'Phase 5: Scammer disappears with all money',
+        'Average loss: $150,000+ per victim',
+        'Pig butchering stole $3.5B in 2024',
+        'Scammers work in organized groups, often trafficked',
+        'If never met in person + investment talk = pig butchering'
+      ]
+    }
+  },
+
+  {
+    id: 28,
+    category: 'nft',
+    difficulty: 'medium',
+    type: 'email',
+    title: 'Fake OpenSea Security Alert',
+    from: 'security-alert@opensea-io.com',
+    to: 'you@email.com',
+    subject: '🚨 Security Alert: Suspicious Activity Detected on Your Account',
+    body: `Dear OpenSea User,
+
+We have detected unusual login activity on your OpenSea account from an unrecognized device:
+
+Location: Moscow, Russia
+IP Address: 195.162.xxx.xxx
+Time: Today at 3:47 AM EST
+
+IMMEDIATE ACTION REQUIRED:
+
+If this was not you, your NFTs may be at risk. We have temporarily restricted your account to prevent unauthorized transfers.
+
+To restore full access and secure your NFTs:
+
+1. Click here to verify your account: https://secure-verify.opensea-io.com
+2. Connect your wallet to confirm ownership
+3. Complete security verification
+4. Your account will be restored within 5 minutes
+
+⚠️ WARNING: Failure to verify within 24 hours will result in permanent account suspension and potential NFT loss.
+
+Your current NFT portfolio value: ~$47,280 USD
+
+Protect your assets now: https://secure-verify.opensea-io.com
+
+Best regards,
+OpenSea Security Team
+
+---
+This is an automated security alert. Do not reply to this email.
+OpenSea | Decentral Inc. | support@opensea.io`,
+    question: 'What should you do about this security alert?',
+    correctAnswer: 'phishing',
+    options: [
+      { id: 'verify', text: 'Verify immediately - My NFTs are at risk!' },
+      { id: 'phishing', text: 'Phishing scam - Check real OpenSea for alerts' },
+      { id: 'support', text: 'Contact OpenSea support directly to confirm' }
+    ],
+    tools: ['urlAnalyzer', 'domainLookup'],
+    feedback: {
+      correct: 'Perfect! This is phishing. Real OpenSea domain: opensea.io (not opensea-io.com). OpenSea shows security alerts IN the app, not via email. "Connect wallet to verify" = wallet drainer approval. Real OpenSea never asks you to connect wallet via email link. Check alerts by logging into opensea.io directly!',
+      incorrect: 'This is phishing! Fake domain: opensea-io.com (real: opensea.io). OpenSea doesn\'t send emails asking to "connect wallet". Real security: Check opensea.io directly, enable 2FA. Clicking link = wallet drainer. Always verify by logging in directly to official site!',
+      xpReward: 150,
+      redFlags: [
+        'Fake domain: opensea-io.com (real: opensea.io)',
+        'Asks you to connect wallet via email link',
+        'Creates panic: "Moscow", "suspicious activity"',
+        'Threatens account suspension',
+        'Shows portfolio value to create urgency',
+        'OpenSea shows alerts IN the platform, not email',
+        'Real OpenSea: opensea.io (log in directly)',
+        '"Do not reply" but provides phishing link'
+      ],
+      blockchainInfo: [
+        'OpenSea is NFT marketplace (real site: opensea.io)',
+        'Phishing emails are #1 NFT theft method',
+        'OpenSea never asks wallet connection via email',
+        'Real security: Check notifications on opensea.io',
+        'Enable 2FA on OpenSea account',
+        'Use hardware wallet for valuable NFTs',
+        'OpenSea has email notifications but never asks for wallet connection',
+        'NFT phishing stole $100M+ in 2024'
+      ]
+    }
+  },
+
+  {
+    id: 29,
+    category: 'mev',
+    difficulty: 'easy',
+    type: 'website',
+    title: 'Front-Running Warning',
+    url: 'https://learn.ethereum.org/mev',
+    content: `
+      <div style="max-width: 700px; margin: 0 auto; padding: 30px; background: #f8f9fa;">
+        <h1 style="color: #333; margin-bottom: 20px;">Understanding MEV & Front-Running</h1>
+        
+        <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+          <h3 style="color: #E53E3E; margin-bottom: 15px;">⚠️ You're About to Swap</h3>
+          <div style="background: #FFF5F5; padding: 20px; border-radius: 8px; border-left: 4px solid #E53E3E;">
+            <p style="color: #333; margin-bottom: 15px;">
+              <strong>Transaction Details:</strong><br/>
+              Swap: 50 ETH → USDC<br/>
+              Slippage: 3%<br/>
+              Gas Price: 45 gwei (Standard)<br/>
+              Public Mempool: YES
+            </p>
+            <p style="color: #C53030; margin: 0; font-weight: bold;">
+              ⚠️ This large transaction is vulnerable to MEV bot front-running!
+            </p>
+          </div>
+        </div>
+        
+        <div style="background: white; padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+          <h3 style="color: #2D3748; margin-bottom: 15px;">What Will Happen:</h3>
+          <ol style="line-height: 2; color: #555; padding-left: 20px;">
+            <li>Your transaction enters public mempool</li>
+            <li>MEV bot sees your large swap</li>
+            <li>Bot front-runs: Buys USDC before your transaction</li>
+            <li>Your swap executes at worse price</li>
+            <li>Bot back-runs: Sells USDC for profit</li>
+            <li><strong>You lose ~$800 to the bot</strong></li>
+          </ol>
+        </div>
+        
+        <div style="background: #E6FFFA; padding: 20px; border-radius: 10px; border-left: 4px solid #38B2AC;">
+          <h3 style="color: #234E52; margin-bottom: 15px;">✅ Protection Options:</h3>
+          <ul style="line-height: 2; color: #2C7A7B; padding-left: 20px;">
+            <li><strong>Use Flashbots Protect</strong> - Private mempool, no front-running</li>
+            <li><strong>Use CoW Swap</strong> - MEV-protected DEX</li>
+            <li><strong>Reduce slippage to 0.3%</strong> - Limits bot profit</li>
+            <li><strong>Split into smaller trades</strong> - Less attractive to bots</li>
+          </ul>
+        </div>
+      </div>
+    `,
+    question: 'You\'re about to swap 50 ETH. How should you protect against MEV?',
+    correctAnswer: 'flashbots',
+    options: [
+      { id: 'proceed', text: 'Proceed as-is - MEV is just part of DeFi' },
+      { id: 'flashbots', text: 'Use Flashbots Protect or CoW Swap for protection' },
+      { id: 'higher_gas', text: 'Increase gas price to 200 gwei to outpace bots' }
+    ],
+    tools: ['gasTracker'],
+    feedback: {
+      correct: 'Excellent! Flashbots Protect (protect.flashbots.net) or CoW Swap (cow.fi) are the best MEV protection. They use private mempools so bots can\'t see your transaction before it\'s mined. This prevents front-running and saves you ~$800 on this trade. Higher gas won\'t help - bots can always outbid you!',
+      incorrect: 'Best protection: Flashbots Protect or CoW Swap! These use private mempools preventing front-running. Higher gas doesn\'t help - bots can outbid. 3% slippage with 50 ETH = $800+ profit for MEV bots. Use MEV protection tools for large trades!',
+      xpReward: 150,
+      redFlags: [
+        'Large trade (50 ETH) is attractive to MEV bots',
+        '3% slippage = large profit opportunity',
+        'Public mempool means bots see your transaction',
+        'Standard gas price doesn\'t protect you',
+        'MEV bots can always outbid your gas price',
+        'Could lose $800+ to front-running',
+        'MEV is not "just part of DeFi" - it\'s preventable'
+      ],
+      blockchainInfo: [
+        'MEV (Maximal Extractable Value) = profit from reordering transactions',
+        'Front-running: Bot buys before you, sells after',
+        'Sandwich attack: Buy before + sell after your trade',
+        'Public mempool = bots see pending transactions',
+        'Flashbots Protect: protect.flashbots.net (private mempool)',
+        'CoW Swap: cow.fi (MEV-protected DEX)',
+        'MEV extracted $663M+ from Ethereum users (2023-2025)',
+        'Protection is free - always use it for large trades'
+      ]
+    }
+  },
+
+  {
+    id: 30,
+    category: 'wallet',
+    difficulty: 'hard',
+    type: 'chat',
+    title: 'Fake Customer Support',
+    messages: [
+      { sender: 'you', text: 'My MetaMask transaction has been pending for 2 hours. Can someone help?', time: '5:23 PM', from: 'You (posted in Discord)' },
+      { sender: 'them', text: 'Hello! I\'m a MetaMask Support Moderator. I can help you with this.', time: '5:24 PM', from: 'MetaMask_Support (DM)' },
+      { sender: 'them', text: 'This is a common issue with network congestion. I\'ll need to access your wallet to cancel the pending transaction.', time: '5:25 PM', from: 'MetaMask_Support (DM)' },
+      { sender: 'them', text: 'Please provide your 12-word recovery phrase so I can connect to your wallet and fix the issue.', time: '5:25 PM', from: 'MetaMask_Support (DM)' },
+      { sender: 'you', text: 'Is this safe? I thought I shouldn\'t share my recovery phrase.', time: '5:26 PM', from: 'You' },
+      { sender: 'them', text: 'It\'s completely safe when working with official support. We need it to synchronize with our server and clear the stuck transaction. This is standard protocol.', time: '5:26 PM', from: 'MetaMask_Support (DM)' },
+      { sender: 'them', text: 'Alternatively, you can go to this validation portal and enter your phrase there: https://metamask-validation.support/sync', time: '5:27 PM', from: 'MetaMask_Support (DM)' },
+      { sender: 'them', text: 'But we need to act fast - after 3 hours, the transaction will fail permanently and you\'ll lose your gas fees. ⏰', time: '5:28 PM', from: 'MetaMask_Support (DM)' }
+    ],
+    question: 'Someone DMed offering MetaMask support. What should you do?',
+    correctAnswer: 'scam',
+    options: [
+      { id: 'share', text: 'Share recovery phrase - They seem legitimate' },
+      { id: 'scam', text: 'SCAM - Block immediately, never share seed phrase' },
+      { id: 'website', text: 'Use the validation portal instead of sharing directly' }
+    ],
+    tools: ['urlAnalyzer'],
+    feedback: {
+      correct: 'PERFECT! Classic fake support scam. RED FLAGS: (1) Real MetaMask NEVER DMs first, (2) NEVER asks for seed phrase, (3) No such thing as "validation portal", (4) Creates fake urgency. Real support: support.metamask.io (submit ticket). Sharing seed phrase = wallet completely drained. Block and report!',
+      incorrect: 'This is a SCAM! MetaMask never DMs users or asks for seed phrases. The "validation portal" is fake. Real MetaMask: (1) Never initiates DMs, (2) Support at support.metamask.io only, (3) Never asks for seed phrase. This person would drain your wallet. Report them!',
+      xpReward: 200,
+      redFlags: [
+        'Unsolicited DM after public post (scammers watch)',
+        'Asks for 12-word recovery phrase (NEVER share)',
+        'Claims to be "official support" in DM',
+        'Fake validation website: metamask-validation.support',
+        'Creates urgency: "act fast", "3 hours"',
+        'Real MetaMask NEVER DMs users first',
+        'Real support: support.metamask.io (ticket system)',
+        '"Standard protocol" to share seed phrase (FALSE)'
+      ],
+      blockchainInfo: [
+        'Fake support is #1 Discord/Telegram scam',
+        'Real MetaMask support: support.metamask.io (tickets only)',
+        'MetaMask moderators NEVER DM first',
+        'Seed phrase = complete wallet access forever',
+        'Stuck transactions: Increase gas or use Etherscan',
+        'Cancel stuck tx: Send 0 ETH to yourself with higher gas',
+        'Discord/Telegram: Disable DMs from non-friends',
+        'Fake support scams stole $200M+ in 2024'
+      ]
+    }
   }
 
-  // More scenarios would continue here...
-  // To save space, I'm including 15 scenarios but the structure shows how to add all 30
+  // 🎉 30 SCENARIOS COMPLETE!
 ];
 
 // Export for use in game.js

@@ -122,6 +122,21 @@ body {
 .stat.streak .stat-value { color: var(--warning); }
 .stat.level .stat-value { color: var(--info); }
 
+.audio-toggle-btn {
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.5em;
+}
+
+.audio-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--primary);
+}
+
 /* Main Container */
 .container {
   max-width: 1200px;
@@ -137,6 +152,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 20px 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 /* Scenario Card */
@@ -929,6 +945,9 @@ body {
         <div class="stat-value" id="streakDisplay">0</div>
         <div class="stat-label">Streak</div>
       </div>
+      <button class="audio-toggle-btn" id="audioToggle" onclick="toggleAudio()" title="Toggle Sound">
+        <span id="audioIcon">🔊</span>
+      </button>
     </div>
   </div>
 </div>
@@ -939,6 +958,8 @@ body {
   </div>
 </div>
 
+<script src="audio-manager.js"></script>
+<script src="api-service.js"></script>
 <script src="scenarios.js"></script>
 <script src="game.js"></script>
 

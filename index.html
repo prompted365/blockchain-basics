@@ -155,6 +155,151 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+/* Dashboard */
+.dashboard {
+  width: 100%;
+  max-width: 1000px;
+  animation: slideIn 0.3s ease-out;
+}
+
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dashboard-hero h1 {
+  font-size: 3em;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-hero p {
+  font-size: 1.3em;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+.config-section {
+  background: var(--bg-card);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 1px solid var(--border);
+}
+
+.config-section h2 {
+  margin-bottom: 20px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.config-option {
+  background: var(--bg-dark);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.config-option:hover {
+  border-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(69, 183, 209, 0.3);
+}
+
+.config-option.selected {
+  border-color: var(--primary);
+  background: rgba(69, 183, 209, 0.1);
+}
+
+.config-option-icon {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.config-option-label {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.config-option-desc {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+.skills-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.skill-preview-card {
+  background: var(--bg-dark);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.skill-preview-icon {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.skill-preview-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: var(--primary);
+}
+
+.skill-preview-desc {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+.start-button-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.start-button {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 20px 60px;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 20px rgba(69, 183, 209, 0.4);
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(69, 183, 209, 0.6);
+}
+
+.start-button:active {
+  transform: translateY(-1px);
+}
+
 /* Scenario Card */
 .scenario-card {
   width: 100%;
@@ -954,8 +1099,13 @@ body {
 
 <div class="container">
   <div class="game-area" id="gameArea">
-    <!-- Content loads here -->
+    <!-- Dashboard or game content loads here -->
   </div>
+</div>
+
+<!-- Hidden templates -->
+<div id="templates" style="display: none;">
+  <!-- Dashboard template loads via JS -->
 </div>
 
 <script src="audio-manager.js"></script>

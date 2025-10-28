@@ -477,7 +477,8 @@ function showToast(message, type = 'info') {
 }
 
 function updateProgressBar() {
-  const progress = ((gameState.currentScenarioIndex) / SCENARIOS.length) * 100;
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
+  const progress = ((gameState.currentScenarioIndex) / scenarios.length) * 100;
   document.getElementById('progressBar').style.width = progress + '%';
 }
 
@@ -540,7 +541,7 @@ function renderScenario(scenario) {
           <span class="scenario-difficulty ${scenario.difficulty}">${scenario.difficulty.toUpperCase()}</span>
         </div>
         <div style="color: var(--text-secondary); font-size: 0.9em;">
-          Scenario ${gameState.currentScenarioIndex + 1} of ${SCENARIOS.length}
+          Scenario ${gameState.currentScenarioIndex + 1} of ${(window.ACTIVE_SCENARIOS || SCENARIOS).length}
         </div>
       </div>
 
@@ -712,7 +713,8 @@ function renderInvestigationTools(scenario) {
 
 async function useTool(toolId) {
   const tool = InvestigationTools[toolId];
-  const scenario = SCENARIOS[gameState.currentScenarioIndex];
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
+  const scenario = scenarios[gameState.currentScenarioIndex];
   
   if (!tool) return;
 
@@ -800,7 +802,8 @@ function selectAnswer(answerId) {
   if (selectedAnswer) return; // Already answered
 
   selectedAnswer = answerId;
-  const scenario = SCENARIOS[gameState.currentScenarioIndex];
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
+  const scenario = scenarios[gameState.currentScenarioIndex];
   const isCorrect = answerId === scenario.correctAnswer;
   const timeSpent = (Date.now() - scenarioStartTime) / 1000;
 
@@ -917,7 +920,8 @@ function showFeedback(isCorrect, scenario) {
 function nextScenario() {
   gameState.currentScenarioIndex++;
   
-  if (gameState.currentScenarioIndex >= SCENARIOS.length) {
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
+  if (gameState.currentScenarioIndex >= scenarios.length) {
     showResults();
   } else {
     loadScenario();
@@ -928,7 +932,8 @@ function loadScenario() {
   selectedAnswer = null;
   scenarioStartTime = Date.now();
   
-  const scenario = SCENARIOS[gameState.currentScenarioIndex];
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
+  const scenario = scenarios[gameState.currentScenarioIndex];
   const gameArea = document.getElementById('gameArea');
   
   // Fade out
@@ -954,8 +959,9 @@ function loadScenario() {
 // ========================================
 
 function showResults() {
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
   const totalTime = Math.round((Date.now() - gameState.startTime) / 1000);
-  const accuracy = Math.round((gameState.correctAnswers / SCENARIOS.length) * 100);
+  const accuracy = Math.round((gameState.correctAnswers / scenarios.length) * 100);
   
   let rank = '';
   let rankColor = '';
@@ -1104,7 +1110,8 @@ function shareToTwitter() {
 }
 
 function copyResults() {
-  const accuracy = Math.round((gameState.correctAnswers / SCENARIOS.length) * 100);
+  const scenarios = window.ACTIVE_SCENARIOS || SCENARIOS;
+  const accuracy = Math.round((gameState.correctAnswers / scenarios.length) * 100);
   const text = `Blockchain Scam Detector 2026 Results:\n\nAccuracy: ${accuracy}%\nDetected: ${gameState.correctAnswers}\nMissed: ${gameState.incorrectAnswers}\nBest Streak: ${gameState.maxStreak}\nLevel: ${gameState.level}\nXP: ${gameState.xp}`;
   
   navigator.clipboard.writeText(text).then(() => {
@@ -1113,22 +1120,189 @@ function copyResults() {
 }
 
 function restartGame() {
-  if (confirm('Are you sure you want to restart? Your progress will be reset.')) {
-    gameState.currentScenarioIndex = 0;
-    gameState.xp = 0;
-    gameState.level = 1;
-    gameState.streak = 0;
-    gameState.maxStreak = 0;
-    gameState.correctAnswers = 0;
-    gameState.incorrectAnswers = 0;
-    gameState.toolsUsed = 0;
-    gameState.scenariosCompleted = [];
-    gameState.achievements = [];
-    gameState.startTime = Date.now();
+  if (confirm('Start a new training session? Your current progress will be reset.')) {
+    // Clear active scenarios
+    window.ACTIVE_SCENARIOS = null;
     
-    updateStats();
-    loadScenario();
+    // Return to dashboard
+    showDashboard();
   }
+}
+
+// ========================================
+// DASHBOARD
+// ========================================
+
+const gameConfig = {
+  quizLength: 30,
+  difficulty: 'all',
+  categories: 'all'
+};
+
+function showDashboard() {
+  const gameArea = document.getElementById('gameArea');
+  
+  const html = `
+    <div class="dashboard">
+      <div class="dashboard-hero">
+        <h1>🛡️ Blockchain Scam Detector 2026</h1>
+        <p>Master the art of spotting crypto scams. Train your skills. Protect your assets.</p>
+      </div>
+
+      <div class="config-section">
+        <h2>⚙️ Configure Your Training</h2>
+        
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--text-secondary);">Quiz Length</h3>
+        <div class="config-grid">
+          <div class="config-option selected" onclick="selectQuizLength(5)" data-quiz="5">
+            <div class="config-option-icon">⚡</div>
+            <div class="config-option-label">Quick Challenge</div>
+            <div class="config-option-desc">5 scenarios (~5 min)</div>
+          </div>
+          <div class="config-option" onclick="selectQuizLength(10)" data-quiz="10">
+            <div class="config-option-icon">🎯</div>
+            <div class="config-option-label">Standard Practice</div>
+            <div class="config-option-desc">10 scenarios (~10 min)</div>
+          </div>
+          <div class="config-option" onclick="selectQuizLength(15)" data-quiz="15">
+            <div class="config-option-icon">🔥</div>
+            <div class="config-option-label">Extended Training</div>
+            <div class="config-option-desc">15 scenarios (~15 min)</div>
+          </div>
+          <div class="config-option" onclick="selectQuizLength(30)" data-quiz="30">
+            <div class="config-option-icon">🏆</div>
+            <div class="config-option-label">Full Mastery</div>
+            <div class="config-option-desc">All 30 scenarios (~30 min)</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--text-secondary);">Difficulty Level</h3>
+        <div class="config-grid">
+          <div class="config-option selected" onclick="selectDifficulty('all')" data-difficulty="all">
+            <div class="config-option-icon">🌟</div>
+            <div class="config-option-label">All Levels</div>
+            <div class="config-option-desc">Mixed difficulty</div>
+          </div>
+          <div class="config-option" onclick="selectDifficulty('easy')" data-difficulty="easy">
+            <div class="config-option-icon">🟢</div>
+            <div class="config-option-label">Beginner</div>
+            <div class="config-option-desc">Easy scenarios only</div>
+          </div>
+          <div class="config-option" onclick="selectDifficulty('medium')" data-difficulty="medium">
+            <div class="config-option-icon">🟡</div>
+            <div class="config-option-label">Intermediate</div>
+            <div class="config-option-desc">Medium challenges</div>
+          </div>
+          <div class="config-option" onclick="selectDifficulty('hard')" data-difficulty="hard">
+            <div class="config-option-icon">🔴</div>
+            <div class="config-option-label">Expert</div>
+            <div class="config-option-desc">Hard scenarios only</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="config-section">
+        <h2>🌳 Skills You'll Develop</h2>
+        <div class="skills-preview">
+          <div class="skill-preview-card">
+            <div class="skill-preview-icon">🎣</div>
+            <div class="skill-preview-name">Phishing Detection</div>
+            <div class="skill-preview-desc">Spot fake emails, websites, and social media scams</div>
+          </div>
+          <div class="skill-preview-card">
+            <div class="skill-preview-icon">📜</div>
+            <div class="skill-preview-name">Contract Analysis</div>
+            <div class="skill-preview-desc">Identify malicious smart contracts and DeFi exploits</div>
+          </div>
+          <div class="skill-preview-card">
+            <div class="skill-preview-icon">🧠</div>
+            <div class="skill-preview-name">Social Engineering</div>
+            <div class="skill-preview-desc">Recognize manipulation tactics and trust-building scams</div>
+          </div>
+          <div class="skill-preview-card">
+            <div class="skill-preview-icon">🔧</div>
+            <div class="skill-preview-name">Technical Auditing</div>
+            <div class="skill-preview-desc">Use blockchain tools to verify addresses and transactions</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="start-button-container">
+        <button class="start-button" onclick="startTraining()">
+          🚀 Start Training
+        </button>
+      </div>
+    </div>
+  `;
+  
+  gameArea.innerHTML = html;
+}
+
+function selectQuizLength(length) {
+  gameConfig.quizLength = length;
+  
+  // Update UI
+  document.querySelectorAll('[data-quiz]').forEach(option => {
+    option.classList.remove('selected');
+  });
+  document.querySelector(`[data-quiz="${length}"]`).classList.add('selected');
+  
+  playClickSound();
+}
+
+function selectDifficulty(difficulty) {
+  gameConfig.difficulty = difficulty;
+  
+  // Update UI
+  document.querySelectorAll('[data-difficulty]').forEach(option => {
+    option.classList.remove('selected');
+  });
+  document.querySelector(`[data-difficulty="${difficulty}"]`).classList.add('selected');
+  
+  playClickSound();
+}
+
+function startTraining() {
+  playClickSound();
+  
+  // Filter scenarios based on config
+  let filteredScenarios = [...SCENARIOS];
+  
+  if (gameConfig.difficulty !== 'all') {
+    filteredScenarios = filteredScenarios.filter(s => s.difficulty === gameConfig.difficulty);
+  }
+  
+  // Limit to selected quiz length
+  if (gameConfig.quizLength < filteredScenarios.length) {
+    // Shuffle and take first N
+    filteredScenarios = filteredScenarios
+      .sort(() => Math.random() - 0.5)
+      .slice(0, gameConfig.quizLength);
+  }
+  
+  // Store filtered scenarios globally
+  window.ACTIVE_SCENARIOS = filteredScenarios;
+  
+  // Reset game state
+  gameState.currentScenarioIndex = 0;
+  gameState.xp = 0;
+  gameState.level = 1;
+  gameState.streak = 0;
+  gameState.maxStreak = 0;
+  gameState.correctAnswers = 0;
+  gameState.incorrectAnswers = 0;
+  gameState.toolsUsed = 0;
+  gameState.scenariosCompleted = [];
+  gameState.achievements = [];
+  gameState.startTime = Date.now();
+  
+  // Reset skills
+  Object.keys(gameState.skills).forEach(skill => {
+    gameState.skills[skill] = { level: 1, xp: 0, maxXP: 100 };
+  });
+  
+  updateStats();
+  loadScenario();
 }
 
 // ========================================
@@ -1137,5 +1311,5 @@ function restartGame() {
 
 window.addEventListener('load', () => {
   updateStats();
-  loadScenario();
+  showDashboard();
 });

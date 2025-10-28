@@ -300,6 +300,246 @@ body {
   transform: translateY(-1px);
 }
 
+/* Education Section */
+.education-section {
+  background: var(--bg-card);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  border: 1px solid var(--border);
+}
+
+.education-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.education-tab {
+  padding: 12px 24px;
+  background: var(--bg-dark);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 500;
+}
+
+.education-tab:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.education-tab.active {
+  background: rgba(69, 183, 209, 0.2);
+  border-color: var(--primary);
+}
+
+.education-content {
+  animation: fadeIn 0.3s ease-in;
+}
+
+.education-card {
+  background: var(--bg-dark);
+  border-radius: 10px;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--primary);
+}
+
+.education-card h3 {
+  color: var(--primary);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.education-card-icon {
+  font-size: 1.5em;
+}
+
+.education-points {
+  list-style: none;
+  padding: 0;
+}
+
+.education-points li {
+  padding: 12px;
+  margin: 8px 0;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+  border-left: 3px solid var(--info);
+}
+
+.education-points li strong {
+  color: var(--primary);
+  display: block;
+  margin-bottom: 5px;
+}
+
+.golden-rule {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: 10px;
+  margin: 15px 0;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.golden-rule-icon {
+  font-size: 2em;
+  flex-shrink: 0;
+}
+
+.golden-rule-content h4 {
+  color: var(--warning);
+  margin-bottom: 8px;
+}
+
+.progress-indicator {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  position: relative;
+}
+
+.progress-indicator::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+  background: var(--bg-main);
+  padding: 0 10px;
+}
+
+.progress-step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-dark);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.progress-step.active .progress-step-circle {
+  background: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 20px rgba(69, 183, 209, 0.5);
+}
+
+.progress-step-label {
+  font-size: 0.85em;
+  text-align: center;
+  max-width: 100px;
+}
+
+.onboarding-cta {
+  background: linear-gradient(135deg, rgba(69, 183, 209, 0.2), rgba(236, 135, 192, 0.2));
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  margin-top: 30px;
+  border: 2px solid var(--primary);
+}
+
+.onboarding-cta h3 {
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.onboarding-cta p {
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
+/* Subtle Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.pulse-on-hover:hover {
+  animation: pulse 1s infinite;
+}
+
+/* Tooltip System */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+  border-bottom: 1px dotted var(--primary);
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 250px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  text-align: center;
+  border-radius: 8px;
+  padding: 12px;
+  position: absolute;
+  z-index: 1000;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -125px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border: 1px solid var(--border);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  font-size: 0.9em;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* Scenario Card */
 .scenario-card {
   width: 100%;
@@ -1109,6 +1349,7 @@ body {
 </div>
 
 <script src="audio-manager.js"></script>
+<script src="crypto-education.js"></script>
 <script src="contract-patterns.js"></script>
 <script src="investigation-tools.js"></script>
 <script src="api-service.js"></script>

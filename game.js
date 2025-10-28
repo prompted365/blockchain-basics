@@ -856,6 +856,185 @@ const gameConfig = {
   categories: 'all'
 };
 
+// ========================================
+// EDUCATION MODULE RENDERING
+// ========================================
+
+function renderEducationBasics() {
+  const basics = CryptoEducation.fundamentals.whatIsBlockchain;
+  return `
+    <div class="education-card">
+      <h3><span class="education-card-icon">${basics.icon}</span> ${basics.title}</h3>
+      <p style="font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">${basics.summary}</p>
+      
+      <ul class="education-points">
+        ${basics.keyPoints.map(point => `
+          <li>
+            <strong>${point.title}</strong>
+            ${point.description}
+            <div style="margin-top: 8px; padding: 10px; background: rgba(69, 183, 209, 0.1); border-radius: 5px; font-style: italic;">
+              💡 ${point.analogy}
+            </div>
+          </li>
+        `).join('')}
+      </ul>
+      
+      <div style="margin-top: 20px; padding: 20px; background: var(--bg-dark); border-radius: 10px; border-left: 4px solid var(--info);">
+        <strong style="color: var(--info);">Why This Matters:</strong>
+        <p style="margin-top: 10px;">${basics.whyItMatters}</p>
+      </div>
+    </div>
+  `;
+}
+
+function renderEducationCrypto() {
+  const crypto = CryptoEducation.fundamentals.whatIsCrypto;
+  return `
+    <div class="education-card">
+      <h3><span class="education-card-icon">${crypto.icon}</span> ${crypto.title}</h3>
+      <p style="font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">${crypto.summary}</p>
+      
+      <ul class="education-points">
+        ${crypto.keyPoints.map(point => `
+          <li>
+            <strong>${point.title}</strong>
+            ${point.description}
+            ${point.example ? `<div style="margin-top: 5px; color: var(--primary);">Example: ${point.example}</div>` : ''}
+            ${point.warning ? `<div style="margin-top: 5px; color: var(--danger);">${point.warning}</div>` : ''}
+          </li>
+        `).join('')}
+      </ul>
+      
+      <div style="margin-top: 20px;">
+        <h4 style="color: var(--primary); margin-bottom: 15px;">Common Types of Cryptocurrency:</h4>
+        ${Object.entries(crypto.commonTypes).map(([name, desc]) => `
+          <div style="padding: 12px; margin: 8px 0; background: rgba(255, 255, 255, 0.03); border-radius: 6px;">
+            <strong>${name}:</strong> ${desc}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderEducationWallets() {
+  const wallets = CryptoEducation.fundamentals.wallets;
+  return `
+    <div class="education-card">
+      <h3><span class="education-card-icon">${wallets.icon}</span> ${wallets.title}</h3>
+      <p style="font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">${wallets.summary}</p>
+      
+      ${wallets.keyComponents.map(comp => `
+        <div style="padding: 20px; margin: 15px 0; background: var(--bg-dark); border-radius: 10px; border-left: 4px solid var(--primary);">
+          <h4 style="color: var(--primary); margin-bottom: 10px;">${comp.term}</h4>
+          <p style="margin-bottom: 10px;">${comp.description}</p>
+          <div style="font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px; font-size: 0.9em; word-break: break-all;">
+            ${comp.format}
+          </div>
+          <div style="margin-top: 10px; font-style: italic; color: var(--text-secondary);">
+            ${comp.visual}
+          </div>
+        </div>
+      `).join('')}
+      
+      <div style="margin-top: 25px; padding: 20px; background: rgba(255, 0, 0, 0.1); border-radius: 10px; border: 2px solid var(--danger);">
+        <h4 style="color: var(--danger); margin-bottom: 15px;">🚨 CRITICAL SECURITY RULES:</h4>
+        ${wallets.criticalRules.map(rule => `
+          <div style="padding: 10px; margin: 8px 0; background: rgba(0,0,0,0.3); border-radius: 5px;">
+            ${rule}
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function renderEducationSecurity() {
+  const security = CryptoEducation.security;
+  return `
+    <div class="education-card">
+      <h3><span class="education-card-icon">🔐</span> The Golden Rules of Crypto Security</h3>
+      <p style="font-size: 1.05em; line-height: 1.8; margin-bottom: 20px;">
+        Follow these fundamental principles to protect your crypto assets from scams and theft.
+      </p>
+      
+      ${security.goldenRules.map(rule => `
+        <div class="golden-rule">
+          <div class="golden-rule-icon">${rule.icon}</div>
+          <div class="golden-rule-content">
+            <h4>${rule.rule}</h4>
+            <p style="margin: 10px 0;">${rule.explanation}</p>
+            <div style="padding: 10px; background: rgba(0,0,0,0.3); border-radius: 5px; margin-top: 10px;">
+              <strong style="color: var(--danger);">⚠️ Consequence:</strong> ${rule.consequence}
+            </div>
+          </div>
+        </div>
+      `).join('')}
+      
+      <div style="margin-top: 25px; padding: 20px; background: var(--bg-dark); border-radius: 10px;">
+        <h4 style="color: var(--warning); margin-bottom: 15px;">Common Security Mistakes to Avoid:</h4>
+        <ul style="list-style: none; padding: 0;">
+          ${security.commonMistakes.map(mistake => `
+            <li style="padding: 8px; margin: 5px 0; background: rgba(255, 255, 255, 0.03); border-radius: 5px;">
+              ❌ ${mistake}
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+function showEducationTab(tab) {
+  playClickSound();
+  
+  // Update active tab
+  document.querySelectorAll('.education-tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  // Render content
+  const content = document.getElementById('educationContent');
+  let html = '';
+  
+  switch(tab) {
+    case 'basics':
+      html = renderEducationBasics();
+      break;
+    case 'crypto':
+      html = renderEducationCrypto();
+      break;
+    case 'wallets':
+      html = renderEducationWallets();
+      break;
+    case 'security':
+      html = renderEducationSecurity();
+      break;
+  }
+  
+  content.innerHTML = html;
+}
+
+function toggleEducation() {
+  playClickSound();
+  const educationSection = document.querySelector('.education-section');
+  const isExpanded = educationSection.style.maxHeight !== '400px';
+  
+  if (isExpanded) {
+    educationSection.style.maxHeight = '400px';
+    educationSection.style.overflow = 'hidden';
+    event.target.textContent = '📖 Read More';
+  } else {
+    educationSection.style.maxHeight = 'none';
+    educationSection.style.overflow = 'visible';
+    event.target.textContent = '📖 Collapse';
+  }
+}
+
+function scrollToConfig() {
+  playClickSound();
+  document.getElementById('configSection').scrollIntoView({ behavior: 'smooth' });
+}
+
 function showDashboard() {
   const gameArea = document.getElementById('gameArea');
   
@@ -864,9 +1043,61 @@ function showDashboard() {
       <div class="dashboard-hero">
         <h1>🛡️ Blockchain Scam Detector 2026</h1>
         <p>Master the art of spotting crypto scams. Train your skills. Protect your assets.</p>
+        <div class="progress-indicator" style="margin-top: 30px;">
+          <div class="progress-step active">
+            <div class="progress-step-circle">1</div>
+            <div class="progress-step-label">Learn Basics</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-step-circle">2</div>
+            <div class="progress-step-label">Understand Threats</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-step-circle">3</div>
+            <div class="progress-step-label">Practice</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-step-circle">4</div>
+            <div class="progress-step-label">Master Tools</div>
+          </div>
+          <div class="progress-step">
+            <div class="progress-step-circle">5</div>
+            <div class="progress-step-label">Stay Safe</div>
+          </div>
+        </div>
       </div>
 
-      <div class="config-section">
+      <div class="education-section">
+        <h2 style="color: var(--primary); margin-bottom: 20px;">📚 New to Crypto? Start Here</h2>
+        <p style="margin-bottom: 20px; font-size: 1.1em; color: var(--text-secondary);">
+          Before diving into scam detection, let's ensure you understand blockchain fundamentals. 
+          <span class="tooltip">Click any topic<span class="tooltiptext">Interactive lessons to build your knowledge</span></span> to learn more.
+        </p>
+        
+        <div class="education-tabs">
+          <div class="education-tab active" onclick="showEducationTab('basics')">🔗 Blockchain Basics</div>
+          <div class="education-tab" onclick="showEducationTab('crypto')">💰 What is Crypto?</div>
+          <div class="education-tab" onclick="showEducationTab('wallets')">👛 Wallets & Keys</div>
+          <div class="education-tab" onclick="showEducationTab('security')">🔐 Security Rules</div>
+        </div>
+        
+        <div id="educationContent" class="education-content">
+          ${renderEducationBasics()}
+        </div>
+        
+        <div class="onboarding-cta">
+          <h3>💡 Pro Tip: Start with Education</h3>
+          <p>Users who understand blockchain fundamentals detect 3x more scams in our training!</p>
+          <button class="btn btn-secondary" onclick="toggleEducation()" style="margin-right: 10px;">
+            📖 Read More
+          </button>
+          <button class="btn btn-outline" onclick="scrollToConfig()">
+            ⏭️ Skip to Training
+          </button>
+        </div>
+      </div>
+
+      <div class="config-section" id="configSection">
         <h2>⚙️ Configure Your Training</h2>
         
         <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--text-secondary);">Quiz Length</h3>

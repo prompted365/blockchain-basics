@@ -1,6 +1,8 @@
-# 🔐 Blockchain Scam Detector 2026
+# UbiquityOS Security Academy
 
-**Interactive blockchain security training platform** - Learn to detect crypto scams, phishing attacks, DeFi exploits, and social engineering through real 2024-2026 threat scenarios.
+**Perception-Aware Blockchain Security Training** - An initiative of **UbiquityOS** by **Prompted LLC**
+
+Learn to detect crypto scams through coordinated intelligence and Theory of Mind applied to blockchain security. Master real 2024-2026 threat scenarios with perception-aware training.
 
 ## 🚀 Live Demo
 
@@ -8,7 +10,20 @@
 
 ## 📊 Project Overview
 
-This is an MVP++ educational game that teaches users to identify blockchain-specific scams through interactive scenarios based on real threat intelligence from 2024-2025.
+**UbiquityOS Security Academy** leverages perception-aware computing principles to teach blockchain security. Unlike pattern-matching training, we help users understand *why* scams work by building mental models of both legitimate and malicious behaviors.
+
+### About UbiquityOS by Prompted LLC
+
+[UbiquityOS](https://promptedllc.com) is the first perception-aware intelligent operating system, coordinating different perspectives rather than forcing conformity. This Security Academy applies those principles to blockchain security education:
+
+- **Perception-Aware Learning**: Understand multiple viewpoints (user, scammer, protocol)
+- **Theory of Mind in Practice**: See through social engineering by modeling attacker thinking
+- **Coordinated Intelligence**: Learn from real threat intelligence, not just rules
+- **Persistent Knowledge**: Build transferable security instincts, not memorized patterns
+
+> "PRIMITIVES. PARADOX. PERCEPTIONS. PERSISTENCE. POTENTIAL." - Prompted LLC
+
+This platform is part of the **Ubiquology** ecosystem - fusing the -ologies of our world into intelligent systems for governance and security.
 
 ### Key Features
 

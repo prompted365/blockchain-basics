@@ -1041,8 +1041,19 @@ function showDashboard() {
   const html = `
     <div class="dashboard">
       <div class="dashboard-hero">
-        <h1>🛡️ Blockchain Scam Detector 2026</h1>
-        <p>Master the art of spotting crypto scams. Train your skills. Protect your assets.</p>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 20px;">
+          <div style="font-size: 3em; background: var(--gradient-ubiquity); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">U</div>
+          <div style="text-align: left;">
+            <h1 style="margin: 0; font-size: 2.5em;">UbiquityOS Security Academy</h1>
+            <p style="margin: 5px 0 0 0; font-size: 0.9em; opacity: 0.8;">by Prompted LLC</p>
+          </div>
+        </div>
+        <p style="font-size: 1.2em; margin-bottom: 10px;">
+          <span style="color: var(--ubiquity-green);">Perception-Aware</span> Blockchain Security Training
+        </p>
+        <p style="font-size: 1em; opacity: 0.8;">
+          Master crypto security through coordinated intelligence and real-world threat scenarios
+        </p>
         <div class="progress-indicator" style="margin-top: 30px;">
           <div class="progress-step active">
             <div class="progress-step-circle">1</div>
@@ -1068,10 +1079,21 @@ function showDashboard() {
       </div>
 
       <div class="education-section">
-        <h2 style="color: var(--primary); margin-bottom: 20px;">📚 New to Crypto? Start Here</h2>
+        <div style="padding: 20px; background: rgba(0, 255, 136, 0.05); border-radius: 10px; margin-bottom: 25px; border-left: 4px solid var(--ubiquity-green);">
+          <h3 style="color: var(--ubiquity-green); margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 1.5em;">⚡</span>
+            Perception-Aware Security Training
+          </h3>
+          <p style="color: var(--text-secondary); line-height: 1.6;">
+            This academy leverages <strong style="color: var(--ubiquity-cyan);">UbiquityOS</strong> principles to teach blockchain security through coordinated intelligence. 
+            Unlike traditional training, we help you understand <em>why</em> scams work by building mental models of both legitimate and malicious patterns.
+          </p>
+        </div>
+        
+        <h2 style="color: var(--primary); margin-bottom: 20px;">📚 Foundation: Understanding Blockchain</h2>
         <p style="margin-bottom: 20px; font-size: 1.1em; color: var(--text-secondary);">
-          Before diving into scam detection, let's ensure you understand blockchain fundamentals. 
-          <span class="tooltip">Click any topic<span class="tooltiptext">Interactive lessons to build your knowledge</span></span> to learn more.
+          Before detecting threats, master the fundamentals. Our perception-aware approach helps you see through scammer tactics. 
+          <span class="tooltip">Click any topic<span class="tooltiptext">Interactive lessons powered by Theory of Mind</span></span> to begin.
         </p>
         
         <div class="education-tabs">
@@ -1086,8 +1108,11 @@ function showDashboard() {
         </div>
         
         <div class="onboarding-cta">
-          <h3>💡 Pro Tip: Start with Education</h3>
-          <p>Users who understand blockchain fundamentals detect 3x more scams in our training!</p>
+          <h3 style="color: var(--ubiquity-green);">💡 Perception-Aware Learning Advantage</h3>
+          <p>UbiquityOS intelligence coordination: Users who build mental models first detect <strong>3x more threats</strong> than those who memorize patterns.</p>
+          <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">
+            <em>Theory of Mind in Practice:</em> Understanding perspectives reveals deception.
+          </p>
           <button class="btn btn-secondary" onclick="toggleEducation()" style="margin-right: 10px;">
             📖 Read More
           </button>
